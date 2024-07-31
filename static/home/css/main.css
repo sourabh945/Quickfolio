@@ -122,6 +122,15 @@ a {
     color:rgb(253,95,4);
 }
 
+.project-link {
+    text-decoration: none;
+    color: rgb(211, 60, 23);
+}
+
+.project-link:hover {
+    color:rgb(17, 153, 231);
+}
+
 /* upper menu bar */
 
 .navbar-container {
@@ -137,7 +146,6 @@ a {
     place-content:left;
     width: auto;
     border:solid rgb(211, 60, 23);
-
 }
 
 .a-navbar {

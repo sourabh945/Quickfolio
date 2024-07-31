@@ -1,0 +1,72 @@
+:root{
+    background-image: url("/static/home/images/background.gif");
+    color: whitesmoke;
+    font:medium;
+    padding:5%;
+    font-family: 'Courier New', Courier, monospace;
+    font:monospace;
+    padding-inline: 2em;
+    color-scheme: light dark;
+}
+.main-body {
+    border: 5px solid rgb(211, 60, 23);
+    border-radius: 0.9%;
+    padding: 1%;
+    min-width: 30em;
+    font-family: 'Courier New', Courier, monospace;
+    font:monospace;
+    max-width: 65em;
+    margin: 4em auto;
+    color-scheme: text;
+    background-color: rgba(2, 6, 36, 0.925);
+    color: rgba(52, 241, 5, 0.959);
+}
+
+/* color class */
+
+.orange {
+    color: rgb(211, 60, 23);
+}
+
+.brown {
+    color: rgb(253, 95, 4);
+}
+
+.blue {
+    color: rgb(17, 153, 231);
+}
+
+/* html tags */
+
+hr {
+    background-color:rgb(211, 60, 23);
+    height: 5px;
+    border: none;
+}
+
+/* Nav bar css */
+
+.navbar-container {
+    width: 100%;
+}
+.navbar {
+    overflow: hidden;
+    background-color: black;
+    color:rgb(211, 60, 23);
+    position: relative;
+    top:2.5%;
+    place-content:left;
+    width: auto;
+    border:solid rgb(211, 60, 23);
+}
+
+.a-navbar {
+    text-decoration: none;
+    color:rgb(211, 60, 23);
+    font: bold;
+    padding:1%;
+}
+
+.a-navbar:hover {
+    color:rgb(17, 153, 231);
+}
