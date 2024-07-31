@@ -10,7 +10,6 @@ my passion. Now I wanted to turn my passion into my job.'''
 
 eduction = [{'website':"https://www.gjust.ac.in",'university':'Guru Jambheshwar University of Science and Technology, Hisar','course':'  M.Sc. Physics','session':'2022-2024'},{'website':"https://www.crsu.ac.in",'university':'Chaudary Ranbir Singh University, Jind','course':'  B.Sc. Physics Chemistry Mathematic','session':'2019-2022'}]
 
-from generate_html import make_html_highlight , list_2_html_str
 
 skills = [["Programming language",['Python','C/C++','JavaScript','SQLite','MySQL','Fortran']],["Technologies and Tools",['HTML','CSS','Nginx','JSON','LaTeX','Micro controllers','Sensors','Origin']],["OS",['Ubuntu','Windows','macOs']],["Frameworks and Python Libraries",['Django','Flask','WebSockets','NumPy','SciPy','RESTful API']],["Version Controls",['Git']],['other','Good understanding of computer hardware and networking hardware',['computer','hardware','networking']],["other",'Good understanding of Physics and Mathematics . And working knowledge of Electronics and Chemistry',['Physics','Mathematics','Electronics','Chemistry']]]
 
