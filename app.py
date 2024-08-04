@@ -4,7 +4,7 @@ from modules.load_data import load
 
 data = load()
 
-app = Flask(__name__,template_folder="./Templates")
+app = Flask(__name__,template_folder="./templates")
 
 @app.template_filter('list')
 def change_to_list(object) -> list:
