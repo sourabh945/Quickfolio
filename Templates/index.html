@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='projects/css/main.css')}}">
+</head>
+<body>
+
+    <!-- contact box -->
+
+    <div id="contact" class="contact-box">
+        <div class="contact-container">
+            <h2><a href="#">&times;</a></h2>
+            <h2><font class="orange">$ </font>Contact<font class="orange"> > </font><font class="brown">{{data.name}}</font></h2>
+            {% for contact in data.contacts %}
+                {% if contact.type == 'call' %}
+                    <h2><a href="tel:{{contact.source}}" target="_blank">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
+                {% elif contact.type == 'email' %}
+                    <h2><a href="mailto:{{contact.source}}" target="_blank">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
+                {% else %}
+                    <h2><a href="{{contact.source}}" target="_blank"">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+     <!-- Nav Bar  -->
+
+    <div class="navbar-container">
+        <div class="navbar">
+            <h2>
+                <a href="#contact">
+                    [Contact]
+                </a>
+                <a href="{{url_for('static',filename='media/resume.pdf')}}" type="pdf">
+                    [Resume]
+                </a>
+                <a href="https://github.com/sourabh945" target="_blank">
+                    [GitHub]
+                </a>
+                |
+                <a href="{{url_for('.home')}}">
+                    [Home]
+                </a>
+            </h2>
+        </div>
+    </div>
+
+    <!-- Main body -->
+
+    <div class="main-body">
+
+        <!-- Heading -->
+
+        <div name="heading">
+            <h1><font class="orange">> </font><font>Projects</font></h1>
+            <hr>
+        </div>
+
+        <!-- index of projects -->
+
+        <div name="index">
+            <h2><font class="orange">$ </font>Context</h2>
+            {% for project in data.projects %}
+                <h2><font class="orange">> </font><a href="{{url_for('.projects_page',repo=project.name)}}">[{{project.name}}]</a><font class="white"> {{project.desc}}</font></h2>
+            {%  endfor %}
+        </div>
+
+
+        <!-- footer -->
+        <div>
+            <hr>
+            <h2><font style="color:rgb(211,60,23)">></font> Thank for visit.</h2>
+            <hr>
+        </div>
+
+        <hr>
+
+        <!-- copy writes and author -->
+        <div>
+            <h4>This webpage is under Apache License
+                Version 2.0, January 2004
+             http://www.apache.org/licenses/</h4>
+            <h3>Source code: <a href="{{source_code}}" target="_blank">{{source_code}}</a></h3>
+        </div>
+
+    </div>
+
+</body>
+</html>

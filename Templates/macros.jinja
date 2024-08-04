@@ -1,0 +1,187 @@
+
+<!-- This is function file for the pages -->
+
+ <!-- small functions  -->
+
+{% macro link_wb(name,link="",target="_blank",title="")%}
+    <font class="orange">[ </font><a herf="{{link}}" target="{{target}}" title="{{title}}">{{name}}</a><font class="orange"> ]</font>
+{% endmacro %}
+
+{% macro link(name,link="",title="",target="_blank") %}
+    <a href="{{link}}" target="{{target}}" title="{{title}}">{{name}}</a>
+{% endmacro %}
+
+{% macro title_wb(title) %}
+    <font class="orange">[ </font><font class="brown">{{title}}</font><font class="orange"> ]</font>
+{% endmacro %}
+
+{% macro p_wh(content,highlights=[]) %}
+
+    <span class="blue-highlight">
+        {% if 'list' is highlights | type %}
+            {% for word in content.split(" ") %}
+                {% if word in highlights %}
+                    {{ link(word,link="https://google.com/search?q="+word) }}
+                {% else %}
+                    <font class="white">{{word}}</font>
+                {% endif %}
+                <font> </font>
+            {% endfor %}
+        {% elif 'dict' is highlights | type %}
+            {% for word in content.split(" ") %}
+                {% if word in highlights.keys() %}
+                    {% if highlights[word] is none %}
+                        {{ link(word,link="https://google.com/search?q="+word) }}
+                    {% else %}
+                        {{ link(word,link="https://google.com/search?q="+word,title=' [ '+(highlights[word] | str)+'/10]') }}
+                    {% endif %}
+                {% else %}
+                    <font class="white">{{word}}</font>
+                {% endif %}
+                <font> </font>
+            {% endfor %}
+        {% endif %}
+    </span>
+
+{% endmacro %}
+
+{% macro print_list(content,link_head="https://google.com/search?q=") %}
+
+    <span class="blue-highlight">
+        {% if 'list' == content | type %}
+            {% for item in content %}
+                {{ link(item,link=link_head+item)}}
+                {% if item != content[-1] %}
+                    <font class="white">, </font>
+                {% endif %}
+            {% endfor%}
+        {% elif 'dict' == content | type %}
+            {% for  item in content.keys() | list %}
+                {% if content[item] is none %}
+                    {{ link(item,link=link_head+item) }}
+                {% else %}
+                    {{ link(item,link=link_head+item,title=' [ '+(content[item]|str)+'/10 ]') }}
+                {% endif %}
+                {% if item != (content.keys() | list)[-1] %}
+                    <font class="white">, </font>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </span>
+
+{% endmacro %}
+
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+ <!-- Skills section -->
+
+{% macro skills(skills) %}
+
+    <div id="skills">
+        {% for skill in skills %}
+            {% if skill.title == 'other' %}
+                <div id="other">
+                    <h2>
+                        <font class="orange">> </font>
+                        {{ p_wh(skill.content,skill.highlights) }}
+                    </h2>
+                </div>
+            {% else %}
+                <div id="{{skill.title}}">
+                    <h2>
+                        {{title_wb(skill.title)}}
+                        {{ print_list(skill.content) }}
+                    </h2>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Achievements Section -->
+
+
+{% macro achievements(achievements) %}
+    
+    <div id="achievement">
+        {% for achievement in achievements %}
+            <h2>
+                <span>
+                    {{ p_wh(achievement.content,achievement.highlights )}}
+                </span>
+            </h2>
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Projects Section -->
+
+{% macro projects_short_desc(projects) %}
+
+    <div id="projects-short-desc">
+        {% for project in projects %}
+            <div id="{{project.name}}">
+                <h2>
+                    <font class="orange">[</font><a href="{{url_for('.projects_page',repo=project.name)}}" target="_blank"> {{project.name}} </a><font class="orange">]</font>
+                    <span class="white">
+                        {{project.desc}}
+                    </span>
+                </h2>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+{% macro project(project) %}
+
+    <div id="project">
+        {% for item in project.content.keys() | list %}
+            <div id="{{item}}">
+                {% if item == "name" %}
+                {% elif item == "link" %}
+                    <h2>{{ link_wb(project.content[word],project.link) }} {{ link(project.link,project.link) }}</h2>
+                
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- contact Section -->
+
+{% macro  contacts(contacts) %}
+
+    <div id="contacts">
+        {% for contact in contacts %}
+            {% if contact.type == 'call' %}
+                    <h2><font class="orange">[</font><a href="tel:{{contact.source}}" target="_blank"> {{contact.name}} </a><font class="orange">]</font><font> {{contact.source}}</font></h2>
+                {% elif contact.type == 'email' %}
+                    <h2><font class="orange">[</font><a href="mailto:{{contact.source}}" target="_blank"> {{contact.name}} </a><font class="orange">]</font><font> {{contact.source}}</font></h2>
+                {% else %}
+                    <h2><font class="orange">[</font><a href="{{contact.source}}" target="_blank"> {{contact.name}} </a><font class="orange">]</font><font> {{contact.source}}</font></h2>
+                {% endif %}
+        {% endfor %}
+    </div>
+
+{% endmacro %}
