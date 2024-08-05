@@ -1,10 +1,10 @@
 {% extends 'src/base.html' %}
 
-{# {% include 'src/macros.jinja' %} #}
-
 {% import 'src/macros.jinja' as elements %}
 
 {% block title %}Portfolio{% endblock %}
+
+{% block navbar %}{{elements.link_wb("Projects",link=url_for('.projects_page'))}}{% endblock %}
 
 {% block body %}
 
@@ -18,17 +18,40 @@
 
     <br>
 
-    {% for item in data.sections.keys() %}
+    <h2>{{ elements.title('Education') }}</h2>
 
-        <div class="{{item}}">
-        
-            <h2>{{elements.title(item)}}</h2>
+    {{ elements.education(data.education) }}
 
-            <h2>{{ elements([data.sections[item]])}}</h2>
-        
-        </div>
+    <br>
+
+    <h2>{{ elements.title('Skills') }}</h2>
+
+    {{ elements.skills(data.skills) }}
+
+    <br>
+
+    <h2>{{ elements.title('Experience') }}</h2>
+
+    {{ elements.experience(data.experience) }}
 
 
-    {% endfor %}
+    <h2>{{ elements.title('Projects') }}</h2>
+
+    {{ elements.projects_sd(data.projects) }}
+
+    <br>
+
+    <h2>{{ elements.title('Achievements') }}</h2>
+
+    {{ elements.achievements(data.achievements) }}
+
+    <br>
+
+    <h2>{{ elements.title('Contacts') }}</h2>
+
+    {{ elements.contacts(data.contacts) }}
+
+    <br>
+
 
 {% endblock %}

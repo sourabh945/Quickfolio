@@ -1,131 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{project.name}}</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='/projects/css/main.css')}}">
-</head>
-<body>
+{% extends 'src/base.html' %}
+
+{% import 'src/macros.jinja' as elements %}
+
+{% block title %}{{project.name}}{% endblock %}
+
+{% block navbar %}{{elements.link_wb("Home",link=url_for('.home'))}}{{elements.link_wb("Projects",link=url_for('.projects_page'))}}{% endblock %}
+
+{% block body %}
+
+    {{elements.heading(text=project['name'])}}
+
+    <hr>
 
 
-     <!-- contact box -->
+    {{elements.project(project)}}
 
-     <div id="contact" class="contact-box">
-        <div class="contact-container">
-            <h2><a href="#">&times;</a></h2>
-            <h2><font class="orange">$ </font>Contact<font class="orange"> > </font><font class="brown">{{data.name}}</font></h2>
-            {% for contact in data.contacts %}
-                {% if contact.type == 'call' %}
-                    <h2><a href="tel:{{contact.source}}" target="_blank">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
-                {% elif contact.type == 'email' %}
-                    <h2><a href="mailto:{{contact.source}}" target="_blank">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
-                {% else %}
-                    <h2><a href="{{contact.source}}" target="_blank"">[{{contact.name}}]</a><font> {{contact.source}}</font></h2>
-                {% endif %}
-            {% endfor %}
-        </div>
-    </div>
-
-     <!-- Nav Bar  -->
-
-    <div class="navbar-container">
-        <div class="navbar">
-            <h2>
-                <a href="#contact">
-                    [Contact]
-                </a>
-                <a href="{{url_for('static',filename='media/resume.pdf')}}" type="pdf" target="_blank">
-                    [Resume]
-                </a>
-                <a href="https://github.com/sourabh945">
-                    [GitHub]
-                </a>
-                |
-                <a href="{{url_for('.home')}}">
-                    [Home]
-                </a>
-                <a href="{{url_for('.projects_page')}}">
-                    [Projects]
-                </a>
-            </h2>
-        </div>
-    </div>
-
-    <!-- main body -->
-
-    <div class="main-body">
-        
-        <div name="heading">
-            <h1><font class="orange">$ </font>{{project.name}}</h1>
-            <hr>
-        </div>
-
-        <div name="project-insight">
-            {% for key in project.content %}
-                {% if key == "name" %}
-                {% elif key == "link" %}
-                <div name="{{project.content[key]}}">
-                    <h2>
-                        <span>
-                            <font class="brown">[{{project.content[key]}}]</font>
-                        </span>
-                        <span class="white">
-                            <a href="{{project[key]}}">{{project[key]}}</a>
-                        </span>
-                    </h2>
-                </div>
-                {% elif key == "skills" %}
-                    <div name="{{project.content[key]}}">
-                        <h2>
-                            <span>
-                                <font class="brown">[{{project.content[key]}}]</font>
-                            </span>
-                            <span class="skill">
-                                {% for skill in project[key] %}
-                                    <a href="https://google.com/search?q={{skill}}">{{skill}}</a>
-                                    {% if skill != project[key][-1] %}
-                                        <font class="white">, </font>
-                                    {% endif %}
-                                {% endfor %}
-                            </span>
-                        </h2>
-                    </div>
-                {% else %}
-                    <div name="{{project.content[key]}}">
-                        <h2>
-                            <span>
-                                <font class="brown">[{{project.content[key]}}]</font>
-                            </span>
-                            <span class="white">
-                                {{project[key]}}
-                            </span>
-                        </h2>
-                    </div>
-                {% endif %}
-                <br>
-            {% endfor %}
-        </div>
-
-        <!-- footer -->
-        <div>
-            <hr>
-            <h2><font style="color:rgb(211,60,23)">></font> Thank for visit.</h2>
-            <hr>
-        </div>
-
-        <hr>
-
-        <!-- copy writes and author -->
-        <div>
-            <h4>This webpage is under Apache License
-                Version 2.0, January 2004
-             http://www.apache.org/licenses/</h4>
-            <h3>Source code: <a href="{{source_code}}">{{source_code}}</a></h3>
-        </div>
+    <br>
 
 
-    </div>
-    
-</body>
-</html>
+{% endblock %}

@@ -1,10 +1,20 @@
-from flask import Flask , render_template, request
+
+from flask import Flask , render_template, request 
 
 from modules.load_data import load
+
+from jinja2 import Environment
 
 data = load()
 
 app = Flask(__name__,template_folder="./templates")
+
+env = app.jinja_env
+
+env.cache_size = 500
+env.auto_reload = False
+
+# custom filters for the jinja code 
 
 @app.template_filter('list')
 def change_to_list(object) -> list:
@@ -25,14 +35,17 @@ def typeof(object)-> str:
 @app.template_filter('try')
 def try_to_fetch(master,object) -> any:
     try:
-        element = master[object]
-        return element
+        return master[object]
     except:
         return None
+    
+# pages for the portfolio
+
 
 @app.route("/")
 def home():
-    return render_template("home.html",data=data,source_code="https://github.com/sourabh945/Portfolio")
+    return render_template('home.html',data=data,source_code="https://github.com/sourabh945/Portfolio")
+
 
 @app.route("/projects",methods=["GET"])
 def projects_page():
@@ -44,8 +57,8 @@ def projects_page():
         for i in data['projects']:
             if i['name'] == project_name:
                 print(i['content'])
-                return render_template('projects/project.html',data=data,project=i,source_code="https://github.com/sourabh945/Portfolio")
-    return render_template('projects/index.html',data=data,source_code="https://github.com/sourabh945/Portfolio")
+                return render_template('project.html',data=data,project=i,source_code="https://github.com/sourabh945/Portfolio")
+    return render_template('index.html',data=data,source_code="https://github.com/sourabh945/Portfolio")
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=5000)

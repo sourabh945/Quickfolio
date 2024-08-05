@@ -63,7 +63,7 @@
         {
             "title" : "other",
             "content" : "Good understanding of Physics and Mathematics , and working knowledge of Electronics and Chemistry",
-            "highlights" : {"Physics":7,"Mathematics":5,"Electronics":3,"Chemistry":3}
+            "highlights" : {"physics":7,"mathematics":5,"electronics":3,"chemistry":3}
         },
 
         {
@@ -97,8 +97,8 @@
         },
 
         {
-            "content" : "IIT JAM (2022) qualified",
-            "highlights" : ["IIT","JAM","(2022)"]
+            "content" : "IIT-JAM (2022) qualified",
+            "highlights" : ["IIT-JAM","(2022)"]
         }
 
     ],

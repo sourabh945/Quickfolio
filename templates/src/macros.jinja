@@ -24,7 +24,7 @@
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 {% macro link_wb(name,link="",target="_blank",title="")%}
-    <font class="orange">[ </font><a herf="{{link}}" target="{{target}}" title="{{title}}">{{name}}</a><font class="orange"> ]</font>
+    <font class="orange">[ </font><a href="{{link}}" target="{{target}}" title="{{title}}">{{name}}</a><font class="orange"> ]</font>
 {% endmacro %}
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
@@ -59,7 +59,7 @@
             </span>
         {% elif 'dict' == highlights | type %}
             {% set adder = " "%}
-            <span>
+            <span class="white">
             {% for word in content.split(" ") %}
                 {% if word | lower in highlights.keys() %}
                     {% if highlights[word] == none %}
@@ -112,9 +112,13 @@
 
 <!-- heading section  -->
 
-{% macro heading(name) %}
+{% macro heading(name="",text="") %}
 
-    <input id="name" type="hidden" value="{{name}}">
+    {% if name == "" and text != "" %}
+        <input id="text" type="hidden" value="{{text}}">
+    {% elif text == "" and name != "" %}
+        <input id="name" type="hidden" value="{{name}}">
+    {% endif %}
 
     <script src="{{url_for('static',filename='javascript/typewriter_animation.js')}}"></script>
 
@@ -164,7 +168,7 @@
     <div id="education">
         {% for  item in education %}
             <div class="{{item.course}}">
-                {{ link(item.university,link=item.link) }}
+                <h2>{{ link(item.university,link=item.link) }}</h2>
                 <h2><font class="blue">{{item.course}}</font><font class="brown"> {{item.session}}</font></h2>
             </div>
         {% endfor %}
@@ -215,7 +219,7 @@
         {% for achievement in achievements %}
             <h2>
                 <span>
-                    {{ p_wh(achievement.content,achievement.highlights )}}
+                    <font class="orange">> </font>{{ p_wh(achievement.content,achievement.highlights )}}
                 </span>
             </h2>
         {% endfor %}
@@ -256,16 +260,17 @@
 
     <div id="project">
         {% for item in project.content.keys() | list %}
-            <div id="{{item}}">
-                {% if item == "name" %}
-                {% elif item == "link" %}
-                    <h2>{{ link_wb(project.content[item],project.link) }} {{ link(project.link,project.link) }}</h2>
-                {% elif item == "skills" %}
-                    <h2>{{ title_wb(project.content[item]) }} {{ print_list(project[item]) }}</h2>
-                {% else %}
-                    <h2>{{ title_wb(project.content[item]) }} {{ p_wh(project[item], ( project | try('highlights') )) }}</h2>
-                {% endif %}
-            </div>
+            {% if item != "name" %}
+                <div id="{{item}}">
+                    {% if item == "link" %}
+                        <h2>{{ link_wb(project.content[item],project.link) }} {{ link(project.link,project.link) }}</h2>
+                    {% elif item == "skills" %}
+                        <h2>{{ title_wb(project.content[item]) }} {{ print_list(project[item]) }}</h2>
+                    {% else %}
+                        <h2>{{ title_wb(project.content[item]) }} {{ p_wh(project[item], ( project | try('highlights') )) }}</h2>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 
@@ -297,18 +302,20 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-{# experenice #}
+{# experience #}
 
-{% macro experenice(experenice) %}
+{% macro experience(experiences) %}
 
     <div id="experience">
-        <h2><font class="orange">> </font>{{ experenice.title }}</h2>
-        <h2><font class="blue"> {{ experenice.company }}</font>  <font class="brown"> {{ experenice.year }}</font></h2>
-        {% if ( experenice.about | try)%}
-            <h2>hello</h2>
-        {% else %}
-            <h2>else hello</h2>
-        {% endif %}
+        {% for experience in experiences %}
+            <h2><font class="orange">> </font>{{ experience.title }}</h2>
+            <h2>{{ link(experience.company,link='https://google.com/search?q='+experience.company) }}  <font class="brown"> {{ experience.years }}</font></h2>
+            {% if ( experience| try('about') )%}
+                {% for item in experience['about'] %}
+                    <span>> {{p_wh(item)}}</span>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
     </div>
 
 {% endmacro %}

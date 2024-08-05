@@ -1,6 +1,9 @@
 document.addEventListener('DOMContentLoaded',
     function () {
-        const name = (document.getElementById('name')).value ; 
+
+        const nameElement = (document.getElementById('name')) || null ; 
+
+
 
         let blinked = false;
         let countBlinked = 0 ; 
@@ -31,7 +34,9 @@ document.addEventListener('DOMContentLoaded',
                 document.getElementById(idCursor).innerHTML = "";
                 if (second) {
                     second = false;
-                    secondLine('cursor-s','space-s','arrow-s');
+                    if (nameElement){
+                        secondLine('cursor-s','space-s','arrow-s');
+                    }
                 }
             }
             
@@ -57,9 +62,19 @@ document.addEventListener('DOMContentLoaded',
         
         }
 
-        let text = "Hello ! I am "+name;
+        let text;
 
-        document.getElementById('arrow').innerHTML = "> "
+        if (nameElement) {
+            const name = nameElement.value;
+            text = "Hello ! I am "+name;
+        }
+        else{
+            text = (document.getElementById('text')).value;
+        }
+
+        setTimeout(function () {
+            document.getElementById('arrow').innerHTML = "> ";
+        },2);
 
         blink('cursor','space');
 
