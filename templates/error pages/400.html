@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error 400</title>
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='icons/broken_page.png')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/errorpage/main.css')}}">
+</head>
+<body>
+    <h1>400,Bad Request</h1>
+    <h3>Server is unable to understand the request, the request is bad so please click the button to got home page.</h3>
+    <a href="{{url_for('.home')}}">
+        <button class="button-class">
+            Home page
+        </button>
+</body>
+</html>

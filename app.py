@@ -1,11 +1,18 @@
 
-from flask import Flask , render_template, request 
+from flask import Flask , render_template, request , redirect
+
+###########################################################################################
+
+__author__ = "https://github.com/sourabh945/"
+
+###########################################################################################
 
 from modules.load_data import load
 
-from jinja2 import Environment
 
-data = load()
+data = load() # this function is for read the json file
+
+##########################################################################################
 
 app = Flask(__name__,template_folder="./templates")
 
@@ -13,6 +20,8 @@ env = app.jinja_env
 
 env.cache_size = 500
 env.auto_reload = False
+
+###########################################################################################
 
 # custom filters for the jinja code 
 
@@ -39,12 +48,37 @@ def try_to_fetch(master,object) -> any:
     except:
         return None
     
+########################################################################################
+
+### error pages
+
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template("error page/404.html"), 404
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template("error page/500.html"), 500
+
+@app.errorhandler(400)
+def bad_request(error):
+    return render_template("error page/400.html"), 400
+
+#######################################################################################################
+    
+###################################################################################################
+    
 # pages for the portfolio
 
+@app.before_request
+def before_request():
+    if request.url.startswith("http://"):
+        return redirect(request.url.replace('http://','https://',1)) , 304
 
 @app.route("/")
 def home():
-    return render_template('home.html',data=data,source_code="https://github.com/sourabh945/Portfolio")
+    return render_template('home.html',data=data,source_code="https://github.com/sourabh945/Quickfolio")
 
 
 @app.route("/projects",methods=["GET"])
@@ -57,8 +91,8 @@ def projects_page():
         for i in data['projects']:
             if i['name'] == project_name:
                 print(i['content'])
-                return render_template('project.html',data=data,project=i,source_code="https://github.com/sourabh945/Portfolio")
-    return render_template('index.html',data=data,source_code="https://github.com/sourabh945/Portfolio")
+                return render_template('project.html',data=data,project=i,source_code="https://github.com/sourabh945/Quickfolio")
+    return render_template('index.html',data=data,source_code="https://github.com/sourabh945/Quickfolio")
 
 if __name__ == "__main__":
-    app.run(debug=True,host='0.0.0.0',port=5000)
+    app.run(host='0.0.0.0',port=5000)

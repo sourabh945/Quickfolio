@@ -1,0 +1,28 @@
+:root {
+    background-color: -moz-dialog;
+    color: rgb(194, 171, 171);
+    font: message-box;
+    padding-inline: 2em;
+    color-scheme: light dark;
+    }
+body {
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 3em;
+    min-width: 30em;
+    max-width: 65em;
+    margin: 4em auto;
+    background-color: white;
+    color: Black;
+}
+h1 {
+    position:relative;
+    text-align: center;
+    font-weight: bold;
+    padding-bottom: 2%;
+}
+
+h3 {
+    align-items: center;
+}
+

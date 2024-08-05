@@ -118,7 +118,7 @@
             "longdesc" : "It is a very light weight , easy deployable and a versatile server that can be deployed on any machine with python installed. And then you are ready to share the file of a selected folder to the other client/devices having a web browser, and they can access the content in the folder with there login credentials with encryption and security of the deployed system. The best of this project is that it not need a database for store files it utilize the filesystem for storing the file and accessing the file so it doesn't affect the deployed device and it useable while it share files with other devices and clients. It is written in the Python using Flask framework which is very lightweight and using nginx as the http-server with the using the benefits Multiprocessing for handling multiple concurrent users and also using multi threading to handle the IO jobs. It will allow user to download and upload file from the server/deployed device and it doesn't allow user to delete files for a security of the files and only admin having physical access to computer can delete files. And it stores the all version of the files that being modified to allow admin to finalize the version of the files.",
             "technical" : "It is a flask web app that exposes the selected file system on a machine to local network or to internet for share file with other machine it act like a network drive but it works thought the web browser in the client side and with no file deleting access to clients and storing all version modified files to finalized by admin. It uses nginx as the http-server which run flask app with multiprocessing to handle concurrent clients and it also use multithreading for IO and today filesystem can enable to access the same file to multiple processes without any data corruption. It also using SSL encryption for security. It also user access log for blame. And it use a internal variable server like redis to store the parser key and session key and user data that using the service in present. All the request are send using a parser key which unique to every request and checked on every request and uses to validate user and by decoding it giving a actual request, and it ensure the request is not made by any middle man.",
             "note" : "It take some of the CSS and HTML form the Mozilla Firefox code. So thanks Mozilla.",
-            "highlights" : ["flask","server"]
+            "highlights" : ["flask","nginx","websocket"]
         },
 
         {
@@ -130,6 +130,41 @@
             "longdesc" : "It is scientific software used to analyze the X-Ray Diffraction data of the crystals without any/minimum human intervention and finding the crystallite parameter for the sample. It is very useful in Material Science and Nano Science. It made to replace a paid software used by scientists across the world Origin. In my software you just load the file and predefine some parameter and it do all the work. And I also use in master's on my crystal samples. It works only with crystals not with amorphous and I never test with ceramics.",
             "technical" : "It scientific software software to analyze the x-Ray Diffraction data and find the crystallite parameter it written in python and use the SciPy to do all the fitting and NumPy & Panda to manage and manipulate the data. It first finding the all peaks in data and then isolate them and then using a algorithm to find initial value for fitting using SciPy and using Physics finding all the crystallite parameters.",
             "note" : "For advance research please verify the results i don't take any responsibility for any error and inaccuracy in the results."
+        },
+
+        {
+            "content" : {"name":"Name","desc":"Brief Description","link":"Link to Repo","skills":"Skills Used","longdesc":"Long Description","technical":"Technical Description"},
+            "name" : "Quickfolio",
+            "desc" : "It is ready make website for portfolio in which you have to fill the information in json file and you ready to go. And it autogenerate all the html you need using jinja2 and python.",
+            "link" : "https://github.com/sourabh945/Quickfolio.git",
+            "skills" : ["Jinja","HTML","CSS","JavaScript","Flask"],
+            "longdesc" : "It is a web app which is Portfolio for you. Anyone can use it just as it is with or without any tweaking. You need to just upload your all information in json file as the instruction is given then you can upload or deploy where you wanted without any problem and make portfolio in seconds.",
+            "technical" : "It is Flask web app where the all the template are made using the HTML , CSS , JavaScript and Jinja2 . By using Jinja I create a dynamic webpages that change as the data in the json file changes you stored in data folder. And this is ready to deploy to any web hosting service you wanted."
+        },
+
+        {
+            "content" : {"name":"Name","desc":"Brief Description","link":"Link to Repo","skills":"Skills Used","technical":"Technical Description"},
+            "name" : "Hydrogen Molecule Ion Sim",
+            "desc" : "It is a simulation of quantum mechanics in which i solve the ground state energy for the Hydrogen Molecule Ion and finding its energy level and orbits.",
+            "link" : "https://github.com/sourabh945/Hydrogen-Molecule-Ion-Sim.git",
+            "technical" : "It is Master's Project. It is a simulation of quantum mechanical system of HMI written in Fortran which use to solve the orbital schrodinger equation for HMI. And it is uses the RK method for coupled orbital equations and shooting method for finding the energy of the system. It also uses Python to analyze and visualize the data of the simulation.",
+            "skills" : ["Fortran","Physics","Quantum Mechanics","Computational Physics","Python","Matplotlib","NumPy"]
+        },
+
+        {
+            "content" : {"name":"Name","desc":"Brief Description","link":"Link to Repo","skills":"Skills Used","technical":"Technical Description","note":"Note"},
+            "name" : "Computational Physics Lib",
+            "link" : "https://github.com/sourabh945/Computational-Physics-Lib.git",
+            "desc" : "It is library of Fortran Program made for solving the problems in the Physics and Mathematics without waring about the programming",
+            "skills" : ["Fortran","Computational Physics","Mathematics"]
+        },
+
+        {
+            "content" : {"name":"Name","desc":"Brief Description","link":"Link to Repo","skills":"Skills Used"},
+            "name" : "BizBackup",
+            "link" : "https://github.com/sourabh945/BizBackup.git",
+            "desc" : "It is a python program use to backup the data to the cloud service using api with the version control of the data with maximum efficiency and i use it personally and it's good for small business and personal use.",
+            "skills" : ["Python","JSON","Rclone API"]
         }
     ],
 
