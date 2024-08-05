@@ -2,4 +2,4 @@
 .vscode
 *.pem
 *.key
-*.pyc
+*.cpython-310.pyc
