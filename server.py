@@ -8,7 +8,7 @@ from gunicorn.app.base import BaseApplication
 
 class HttpSErver(BaseApplication):
 
-    def __init__(self, app:Flask ,option=None, usage=None, prog=None):
+    def __init__(self, app ,option=None, usage=None, prog=None):
         self.application = app
         self.option = option or {}
         super().__init__(usage, prog)
