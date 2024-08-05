@@ -10,6 +10,10 @@ app = Flask(__name__,template_folder="./templates")
 def change_to_list(object) -> list:
     return list(object)
 
+@app.template_filter('lower')
+def change_to_list(object:str) -> str:
+    return object.lower()
+
 @app.template_filter('str')
 def change_to_list(object) -> str:
     return str(object)
@@ -17,6 +21,14 @@ def change_to_list(object) -> str:
 @app.template_filter('type')
 def typeof(object)-> str:
     return str(type(object)).split("'")[1]
+
+@app.template_filter('try')
+def try_to_fetch(master,object) -> any:
+    try:
+        element = master[object]
+        return element
+    except:
+        return None
 
 @app.route("/")
 def home():

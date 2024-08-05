@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded',
                 document.getElementById(idCursor).innerHTML = "";
                 if (second) {
                     second = false;
-                    secondLine('message-t','message-s','message-f');
+                    secondLine('cursor-s','space-s','arrow-s');
                 }
             }
             
@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded',
         }
 
         let text = "Hello ! I am "+name;
+
+        document.getElementById('arrow').innerHTML = "> "
 
         blink('cursor','space');
 

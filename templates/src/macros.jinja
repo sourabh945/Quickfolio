@@ -5,6 +5,24 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+{% macro title(title) %}
+
+    <font class="orange">$ </font><font>{{title}}</font>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+{% macro title_wa(title) %}
+
+    <font class="orange">> </font><font>{{title}}</font>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
 {% macro link_wb(name,link="",target="_blank",title="")%}
     <font class="orange">[ </font><a herf="{{link}}" target="{{target}}" title="{{title}}">{{name}}</a><font class="orange"> ]</font>
 {% endmacro %}
@@ -26,28 +44,35 @@
 {% macro p_wh(content,highlights=[]) %}
 
     <span class="blue-highlight">
-        {% if 'list' is highlights | type %}
+        {% set highlights = highlights or []%}
+        {% if 'list' == highlights | type %}
+            {% set adder = " " %}
+            <span class="white">
+                {% for word in content.split(" ") %}
+                    {% if word in highlights %}
+                        {{ link(word,link="https://google.com/search?q="+word) }}
+                    {% else %}
+                        {{ word }} 
+                    {% endif %}
+                    {{ adder }}
+                {% endfor %}
+            </span>
+        {% elif 'dict' == highlights | type %}
+            {% set adder = " "%}
+            <span>
             {% for word in content.split(" ") %}
-                {% if word in highlights %}
-                    {{ link(word,link="https://google.com/search?q="+word) }}
-                {% else %}
-                    <font class="white">{{word}}</font>
-                {% endif %}
-                <font> </font>
-            {% endfor %}
-        {% elif 'dict' is highlights | type %}
-            {% for word in content.split(" ") %}
-                {% if word in highlights.keys() %}
-                    {% if highlights[word] is none %}
+                {% if word | lower in highlights.keys() %}
+                    {% if highlights[word] == none %}
                         {{ link(word,link="https://google.com/search?q="+word) }}
                     {% else %}
                         {{ link(word,link="https://google.com/search?q="+word,title=' [ '+(highlights[word] | str)+'/10]') }}
                     {% endif %}
                 {% else %}
-                    <font class="white">{{word}}</font>
+                    {{ word }}
                 {% endif %}
-                <font> </font>
+                {{ adder }}
             {% endfor %}
+            </span>
         {% endif %}
     </span>
 
@@ -67,7 +92,7 @@
             {% endfor%}
         {% elif 'dict' == content | type %}
             {% for  item in content.keys() | list %}
-                {% if content[item] is none %}
+                {% if content[item] == none %}
                     {{ link(item,link=link_head+item) }}
                 {% else %}
                     {{ link(item,link=link_head+item,title=' [ '+(content[item]|str)+'/10 ]') }}
@@ -88,8 +113,20 @@
 <!-- heading section  -->
 
 {% macro heading(name) %}
-    <div class="heading"
-{% endfor %}
+
+    <input id="name" type="hidden" value="{{name}}">
+
+    <script src="{{url_for('static',filename='javascript/typewriter_animation.js')}}"></script>
+
+    <div class="heading">
+        <h1>
+            <font class="orange" id="arrow"></font><font id="space"></font><font id="cursor"></font>
+        </h1>
+        <h2>
+            <font class="orange" id="arrow-s"></font><font id="space-s"></font><font id="cursor-s"></font>
+        </h2>
+    </div>
+{% endmacro %}
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -97,18 +134,20 @@
 
 <!-- about section --->
 
-{% macro about(img_src,about) %}
+{% macro about(img_src,about,name) %}
 
     <script src="{{ url_for('static',filename='javascript/image_hidder.js') }}"></script>
 
     <div class="two-section-container">
         <div class="l-section">
             <div class="profile-photo">
-                <img src="{{ url_for('static',filename='media/profile.ico')}}">
+                <img src="{{img_src}}">
             </div>
         </div>
         <div class="r-section">
-            <p> {{about}} </p>
+            <h2>{{ title_wa(name) }}</h2>
+            <h2 class="white">{{about}}</h2>
+            <hr>
         </div>
     </div>
 
@@ -190,7 +229,9 @@
 
 <!-- Projects Section -->
 
-{% macro projects_short_desc(projects) %}
+{# projects with short description #}
+
+{% macro projects_sd(projects) %}
 
     <div id="projects-short-desc">
         {% for project in projects %}
@@ -209,6 +250,8 @@
 
 <!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
+{# projects with pages #}
+
 {% macro project(project) %}
 
     <div id="project">
@@ -216,8 +259,11 @@
             <div id="{{item}}">
                 {% if item == "name" %}
                 {% elif item == "link" %}
-                    <h2>{{ link_wb(project.content[word],project.link) }} {{ link(project.link,project.link) }}</h2>
-                
+                    <h2>{{ link_wb(project.content[item],project.link) }} {{ link(project.link,project.link) }}</h2>
+                {% elif item == "skills" %}
+                    <h2>{{ title_wb(project.content[item]) }} {{ print_list(project[item]) }}</h2>
+                {% else %}
+                    <h2>{{ title_wb(project.content[item]) }} {{ p_wh(project[item], ( project | try('highlights') )) }}</h2>
                 {% endif %}
             </div>
         {% endfor %}
@@ -243,6 +289,26 @@
                     <h2><font class="orange">[</font><a href="{{contact.source}}" target="_blank"> {{contact.name}} </a><font class="orange">]</font><font> {{contact.source}}</font></h2>
                 {% endif %}
         {% endfor %}
+    </div>
+
+{% endmacro %}
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+{# experenice #}
+
+{% macro experenice(experenice) %}
+
+    <div id="experience">
+        <h2><font class="orange">> </font>{{ experenice.title }}</h2>
+        <h2><font class="blue"> {{ experenice.company }}</font>  <font class="brown"> {{ experenice.year }}</font></h2>
+        {% if ( experenice.about | try)%}
+            <h2>hello</h2>
+        {% else %}
+            <h2>else hello</h2>
+        {% endif %}
     </div>
 
 {% endmacro %}

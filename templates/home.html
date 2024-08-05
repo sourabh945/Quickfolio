@@ -1,1 +1,34 @@
-{% extend 'base.html' %}
+{% extends 'src/base.html' %}
+
+{# {% include 'src/macros.jinja' %} #}
+
+{% import 'src/macros.jinja' as elements %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block body %}
+
+    {{ elements.heading(data.name) }}
+
+    <hr>
+
+    <h2>{{ elements.title('whoami')}}</h2>
+
+    {{ elements.about(url_for('static',filename='media/profile.ico'),data.about,data.name)}}
+
+    <br>
+
+    {% for item in data.sections.keys() %}
+
+        <div class="{{item}}">
+        
+            <h2>{{elements.title(item)}}</h2>
+
+            <h2>{{ elements([data.sections[item]])}}</h2>
+        
+        </div>
+
+
+    {% endfor %}
+
+{% endblock %}
