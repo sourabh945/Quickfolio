@@ -1,0 +1,1 @@
+It is easy deployable web application for portfolio made with flask in which you have to just add a you profile data into a json file and when you deployed you have a full ready portfolio without any coding
