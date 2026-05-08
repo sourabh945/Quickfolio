@@ -3,3 +3,4 @@
 *.pem
 *.key
 *.cpython-310.pyc
+**/.venv/
