@@ -78,7 +78,7 @@ def sitemap():
 @app.before_request
 def before_request():
     if request.url.startswith("http://"):
-        return redirect(request.url.replace("http://", "https://", 1)), 304
+        return redirect(request.url.replace("http://", "https://", 1)), 301
 
 
 @app.route("/")
