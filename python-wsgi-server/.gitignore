@@ -1,0 +1,6 @@
+**/__pycache__/
+.vscode
+*.pem
+*.key
+*.cpython-310.pyc
+**/.venv/
