@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en" class="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Error 400 | System Exception</title>
+        <link
+            rel="icon"
+            type="image/png"
+            href="{{url_for('static',filename='icons/broken_page.png')}}"
+        />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        fontFamily: { mono: ["JetBrains Mono", "monospace"] },
+                        colors: {
+                            bgPanel: "rgba(18, 18, 20, 0.85)",
+                            bgHeader: "rgba(31, 31, 34, 0.95)",
+                            sysGreen: "#4ade80",
+                            sysPurple: "#c084fc",
+                            sysBlue: "#60a5fa",
+                            sysRed: "#ef4444",
+                        },
+                    },
+                },
+            };
+        </script>
+        <style>
+            body {
+                font-family: "JetBrains Mono", monospace;
+                color: #e5e7eb;
+                background-color: #09090b;
+            }
+            .dynamic-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: linear-gradient(
+                    45deg,
+                    #09090b,
+                    #120b1a,
+                    #0b111a,
+                    #1a0b0b
+                );
+                background-size: 400% 400%;
+                animation: gradientAnim 20s ease infinite;
+                z-index: -1;
+            }
+            @keyframes gradientAnim {
+                0% {
+                    background-position: 0% 50%;
+                }
+                50% {
+                    background-position: 100% 50%;
+                }
+                100% {
+                    background-position: 0% 50%;
+                }
+            }
+            .glass-panel {
+                background: rgba(18, 18, 20, 0.85);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(239, 68, 68, 0.3);
+                box-shadow: 0 0 30px rgba(239, 68, 68, 0.05);
+            }
+        </style>
+    </head>
+
+    <body
+        class="antialiased min-h-screen flex items-center justify-center p-4 relative"
+    >
+        <div class="dynamic-bg"></div>
+
+        <div
+            class="glass-panel rounded-lg w-full max-w-2xl flex flex-col overflow-hidden z-10"
+        >
+            <header
+                class="bg-bgHeader px-5 py-3 border-b border-sysRed/30 flex justify-between items-center shrink-0"
+            >
+                <div
+                    class="text-xs text-sysRed font-bold flex items-center gap-2"
+                >
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                        ></path>
+                    </svg>
+                    /var/log/syslog
+                </div>
+                <div class="text-gray-500 text-xs">tty1</div>
+            </header>
+
+            <div class="p-6 sm:p-10 flex flex-col">
+                <h1
+                    class="text-6xl sm:text-7xl font-black text-white mb-2 tracking-tight"
+                >
+                    400
+                </h1>
+                <h2
+                    class="text-sysRed text-xl sm:text-2xl font-bold mb-6 uppercase tracking-widest"
+                >
+                    Bad Request
+                </h2>
+
+                <div
+                    class="bg-[#09090b] p-4 sm:p-5 rounded border border-gray-800 font-mono text-xs sm:text-sm mb-8 space-y-2"
+                >
+                    <div class="text-gray-500">
+                        > Executing request pipeline...
+                    </div>
+                    <div class="text-gray-500">
+                        > Validating payload syntax...
+                    </div>
+                    <div class="text-sysRed font-bold">
+                        > EXCEPTION: SYNTAX_INVALID
+                    </div>
+                    <div
+                        class="text-gray-400 pl-4 border-l-2 border-sysRed/50 mt-2"
+                    >
+                        The server is unable to understand the request.<br />
+                        Client-side malformed syntax detected.<br />
+                        Awaiting user input to resolve...
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row sm:items-center gap-4 border-t border-gray-800 pt-6 mt-auto"
+                >
+                    <span class="text-gray-500 text-sm hidden sm:inline-block"
+                        >guest@sys:~$</span
+                    >
+                    <a
+                        href="{{ url_for('home') }}"
+                        class="inline-flex items-center gap-2 bg-[#121214] text-sysGreen px-5 py-2.5 rounded border border-sysGreen/30 hover:border-sysGreen hover:bg-sysGreen/10 transition-all font-bold tracking-wider text-sm justify-center uppercase"
+                    >
+                        ./reboot_to_home.sh
+                    </a>
+                    <a
+                        href="{{ url_for('resume') }}"
+                        class="inline-flex items-center gap-2 bg-[#121214] text-sysBlue px-5 py-2.5 rounded border border-sysBlue/30 hover:border-sysBlue hover:bg-sysBlue/10 transition-all font-bold tracking-wider text-sm justify-center uppercase"
+                    >
+                        cat resume.pdf
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
