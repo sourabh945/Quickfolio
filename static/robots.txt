@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://sourabh945.pythonanywhere.com/sitemap.xml

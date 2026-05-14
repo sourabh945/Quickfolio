@@ -1,0 +1,57 @@
+name: Sync Branches to Main (With Full History)
+
+on:
+  push:
+    branches:
+      - python-flask-version
+      - nodejs-cloudflare-version
+  workflow_dispatch:
+
+jobs:
+  sync-subtree:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      # Step 1: Checkout main branch with FULL history (fetch-depth: 0 is required for subtree)
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      # Step 2: Configure Git Bot
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Step 3: Fetch the full history of the development branches
+      - name: Fetch development branches
+        run: |
+          git fetch origin python-flask-version
+          git fetch origin nodejs-cloudflare-version
+
+      # Step 4: Sync the Python branch with history
+      - name: Sync Python Branch via Subtree
+        run: |
+          # If the folder exists, pull the new commits. If it doesn't, initialize the subtree.
+          if [ -d "python-wsgi-server" ]; then
+            git subtree pull --prefix=python-wsgi-server origin python-flask-version -m "Merge Python branch history"
+          else
+            git subtree add --prefix=python-wsgi-server origin python-flask-version -m "Initialize Python subtree"
+          fi
+
+      # Step 5: Sync the Cloudflare branch with history
+      - name: Sync Cloudflare Branch via Subtree
+        run: |
+          if [ -d "edge-single-file" ]; then
+            git subtree pull --prefix=edge-single-file origin nodejs-cloudflare-version -m "Merge Cloudflare branch history"
+          else
+            git subtree add --prefix=edge-single-file origin nodejs-cloudflare-version -m "Initialize Cloudflare subtree"
+          fi
+
+      # Step 6: Push the merged histories to main
+      - name: Push to Main
+        run: git push origin main
